@@ -28,15 +28,6 @@
         "tsConfigPath": "apps/api/tsconfig.app.json"
       }
     },
-    "madin": {
-      "type": "application",
-      "root": "apps/madin",
-      "entryFile": "main",
-      "sourceRoot": "apps/madin/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/madin/tsconfig.app.json"
-      }
-    },
     "admin": {
       "type": "application",
       "root": "apps/admin",
@@ -44,6 +35,15 @@
       "sourceRoot": "apps/admin/src",
       "compilerOptions": {
         "tsConfigPath": "apps/admin/tsconfig.app.json"
+      }
+    },
+    "libs": {
+      "type": "library",
+      "root": "libs/libs",
+      "entryFile": "index",
+      "sourceRoot": "libs/libs/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/libs/tsconfig.lib.json"
       }
     }
   }
