@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { LibsService } from './libs.service';
+import { DaoService } from './dao.service';
 
-describe('LibsService', () => {
-  let service: LibsService;
+describe('DaoService', () => {
+  let service: DaoService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [LibsService],
+      providers: [DaoService],
     }).compile();
 
-    service = module.get<LibsService>(LibsService);
+    service = module.get<DaoService>(DaoService);
   });
 
   it('should be defined', () => {

@@ -23,6 +23,18 @@
       ],
       "@app/libs/*": [
         "libs/libs/src/*"
+      ],
+      "@app/common": [
+        "libs/common/src"
+      ],
+      "@app/common/*": [
+        "libs/common/src/*"
+      ],
+      "@app/dao": [
+        "libs/dao/src"
+      ],
+      "@app/dao/*": [
+        "libs/dao/src/*"
       ]
     }
   }

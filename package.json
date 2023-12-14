@@ -74,7 +74,9 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/libs(|/.*)$": "<rootDir>/libs/libs/src/$1"
+      "^@app/libs(|/.*)$": "<rootDir>/libs/libs/src/$1",
+      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
+      "^@app/dao(|/.*)$": "<rootDir>/libs/dao/src/$1"
     }
   }
 }
