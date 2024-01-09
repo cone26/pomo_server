@@ -1,9 +1,9 @@
-import { Injectable, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { NestFastifyApplication } from '@nestjs/platform-fastify';
 
-@Injectable()
 export class ApiServer {
-  constructor(private readonly app) {}
+  constructor(private readonly app: NestFastifyApplication) {}
 
   async init() {
     // CORS
