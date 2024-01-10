@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ApiModule } from './api.module';
-import { ApiServer } from './api.service';
+import { ApiServer } from './api.server';
 import {
   FastifyAdapter,
   NestFastifyApplication,
