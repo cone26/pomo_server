@@ -7,10 +7,13 @@ export class User extends BaseTimeEntity {
   id: number;
 
   @Column()
-  nickName: string;
+  email: string;
 
-  @Column({ type: 'tinyint' })
-  gameDbId: number;
+  @Column()
+  password: string;
+
+  @Column()
+  nickName: string;
 
   constructor(partial?: Partial<User>) {
     super();
