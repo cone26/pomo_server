@@ -1,15 +1,21 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthLoginInDto } from './dto/auth-login-in-dto';
-import { JwtService } from '@nestjs/jwt';
+import { ApiResponseEntity } from '@app/common/decorator/api-response-entity.decorator';
+import { ResponseEntity } from '@app/common/network/response-entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @HttpCode(HttpStatus.OK)
   @Post('login')
+  @ApiResponseEntity({ summary: 'login' })
   signIn(@Body() authLoginInDto: AuthLoginInDto) {
-    return this.authService.signIn(authLoginInDto);
+    return new ResponseEntity()
+      .ok()
+      .body(this.authService.signIn(authLoginInDto))
+      .build();
   }
 }
