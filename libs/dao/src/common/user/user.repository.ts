@@ -9,4 +9,10 @@ export class UserRepository extends Repository<User> {
       .where('user.email=:email', { email: email })
       .getOne();
   }
+
+  async findById(id: number): Promise<User> {
+    return await this.createQueryBuilder('user')
+      .where(`user.id=:id`, { id: id })
+      .getOne();
+  }
 }
