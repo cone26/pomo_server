@@ -6,8 +6,8 @@ import {
   ApiResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
-import { PageMetaDto } from '@app/common/dto/page-meta.dto';
-import { Response, ResponseEntity } from '@app/common/network/response-entity';
+import { PageMetaDto } from '@libs/common/dto/page-meta.dto';
+import { ResponseEntity } from '@libs/common/network/response-entity';
 
 export declare type ApiResponseEntityMetaOptions = {
   type?: Type<any>;

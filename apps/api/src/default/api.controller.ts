@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiService } from './api.service';
-import { ApiResponseEntity } from '@app/common/decorator/api-response-entity.decorator';
-import { Response, ResponseEntity } from '@app/common/network/response-entity';
+import { Response, ResponseEntity } from '@libs/common/network/response-entity';
+import { ApiResponseEntity } from '@libs/common/decorator/api-response-entity.decorator';
 
 @Controller()
 export class ApiController {

@@ -25,6 +25,6 @@ export const defaultTypeOrmOptions: DataSourceOptions = {
 export const commonTypeOrmModuleOptions: DataSourceOptions = {
   ...defaultTypeOrmOptions,
   database: process.env.DB_COMMON_NAME,
-  // entities: ['apps/libs/dao/src/common/**/*.entity.{ts,js}'],
-  // migrations: ['dist/apps/libs/dao/src/migration/database/common/*.{ts,js}'],
+  entities: ['dist/libs/dao/src/common/**/*.entity.{ts,js}'],
+  migrations: ['dist/libs/dao/src/migration/database/common/*.{ts,js}'],
 };

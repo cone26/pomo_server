@@ -1,22 +1,21 @@
 {
-  "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/game/src",
+  "sourceRoot": "apps/api/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/game/tsconfig.app.json"
+    "tsConfigPath": "apps/api/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/game",
+  "root": "apps/api",
   "projects": {
-    "game": {
+    "batch": {
       "type": "application",
-      "root": "apps/game",
+      "root": "apps/batch",
       "entryFile": "main",
-      "sourceRoot": "apps/game/src",
+      "sourceRoot": "apps/batch/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/game/tsconfig.app.json"
+        "tsConfigPath": "apps/batch/tsconfig.app.json"
       }
     },
     "api": {
@@ -35,15 +34,6 @@
       "sourceRoot": "apps/admin/src",
       "compilerOptions": {
         "tsConfigPath": "apps/admin/tsconfig.app.json"
-      }
-    },
-    "libs": {
-      "type": "library",
-      "root": "libs/libs",
-      "entryFile": "index",
-      "sourceRoot": "libs/libs/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/libs/tsconfig.lib.json"
       }
     },
     "common": {

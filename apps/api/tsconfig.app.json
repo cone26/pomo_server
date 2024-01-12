@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "outDir": "../../dist/apps/api"
+    "outDir": "../../dist"
   },
   "include": ["src/**/*"],
+//  "include": ["src/**/*", "../../libs/dao/src/migration/database/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PageMetaDto } from '@app/common/dto/page-meta.dto';
+import { PageMetaDto } from '@libs/common/dto/page-meta.dto';
 
 export class Response {
   @ApiProperty({ example: 0 })

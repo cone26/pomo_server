@@ -9,13 +9,14 @@ import {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface';
-import { TYPEORM_ENTITY_REPOSITORY } from '@app/common/database/typeorm/typeorm-ex.decorator';
+import { TYPEORM_ENTITY_REPOSITORY } from '@libs/common/database/typeorm/typeorm-ex.decorator';
 
 const dataSources: Record<string, DataSource> = {};
 const customRepositories: Record<string, Record<string, any>> = {};
 
 export class TypeOrmExModule {
   public static forRoot(options?: TypeOrmModuleOptions): DynamicModule {
+    console.log(options);
     return TypeOrmModule.forRoot(options);
   }
 
