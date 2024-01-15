@@ -6,6 +6,10 @@ import { TypeOrmExModule } from '@libs/common/database/typeorm/typeorm-ex.module
 import { commonTypeOrmModuleOptions } from '@libs/common/database/typeorm/typeorm-module.option';
 import { UserModule } from '@libs/dao/common/user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
+import { UserController } from './user/user.controller';
+import { AuthService } from './auth/auth.service';
+import { UserService } from './user/user.service';
 // import { AuthController } from './auth/auth.controller';
 // import { AuthService } from './auth/auth.service';
 // import { UserService } from './user/user.service';
@@ -25,15 +29,7 @@ import { AuthModule } from './auth/auth.module';
     // dao module
     UserModule,
   ],
-  controllers: [
-    ApiController,
-    // AuthController,
-    // UserController
-  ],
-  providers: [
-    ApiService,
-    // AuthService,
-    // UserService
-  ],
+  controllers: [ApiController, AuthController, UserController],
+  providers: [ApiService, AuthService, UserService],
 })
 export class ApiModule {}
