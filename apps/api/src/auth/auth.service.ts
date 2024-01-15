@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   validateJwt(payload: any) {
-    return !!payload.id && !!payload.address && payload.consentPrivacyAct;
+    return !!payload.sub && !!payload.email;
   }
 
   getAccessToken(payload: any): string {
