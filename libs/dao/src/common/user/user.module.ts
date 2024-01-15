@@ -4,8 +4,7 @@ import { TypeOrmExModule } from '@libs/common/database/typeorm/typeorm-ex.module
 
 @Module({
   imports: [
-    TypeOrmExModule.forFeature([UserRepository]),
-    // TypeOrmExModule.forFeature([UserRepository], process.env.DB_COMMON_NAME),
+    TypeOrmExModule.forFeature([UserRepository], process.env.DB_COMMON_NAME),
   ],
   exports: [TypeOrmExModule],
 })

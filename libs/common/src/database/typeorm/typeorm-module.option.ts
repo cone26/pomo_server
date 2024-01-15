@@ -1,4 +1,5 @@
 import { DataSourceOptions, getMetadataArgsStorage } from 'typeorm';
+import { CustomNamingStrategy } from '@libs/common/database/typeorm/custom-naming-strategy';
 
 export const defaultTypeOrmOptions: DataSourceOptions = {
   type: 'mysql',
@@ -9,7 +10,7 @@ export const defaultTypeOrmOptions: DataSourceOptions = {
   synchronize:
     (process.env.DB_SYNCHRONIZE && JSON.parse(process.env.DB_SYNCHRONIZE)) ||
     false,
-  // namingStrategy: new CustomNamingStrategy(),
+  namingStrategy: new CustomNamingStrategy(),
   charset: 'utf8mb4',
   timezone: 'Z',
   extra: {
@@ -24,6 +25,7 @@ export const defaultTypeOrmOptions: DataSourceOptions = {
 };
 export const commonTypeOrmModuleOptions: DataSourceOptions = {
   ...defaultTypeOrmOptions,
+  name: process.env.DB_COMMON_NAME,
   database: process.env.DB_COMMON_NAME,
   entities: ['dist/libs/dao/src/common/**/*.entity.{ts,js}'],
   migrations: ['dist/libs/dao/src/migration/database/common/*.{ts,js}'],

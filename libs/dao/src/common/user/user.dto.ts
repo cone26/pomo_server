@@ -1,5 +1,5 @@
-import { BaseTimeDto } from '@app/dao/base-time.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseTimeDto } from '@libs/dao/base-time.dto';
 
 export class UserDto extends BaseTimeDto {
   @ApiProperty()

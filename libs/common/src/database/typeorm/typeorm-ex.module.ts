@@ -16,7 +16,6 @@ const customRepositories: Record<string, Record<string, any>> = {};
 
 export class TypeOrmExModule {
   public static forRoot(options?: TypeOrmModuleOptions): DynamicModule {
-    console.log(options);
     return TypeOrmModule.forRoot(options);
   }
 
@@ -30,7 +29,6 @@ export class TypeOrmExModule {
     repositories: T[],
     dataSourceName?: string,
   ): DynamicModule {
-    console.log(dataSourceName);
     const providers: Provider[] = [];
 
     for (const repository of repositories) {
