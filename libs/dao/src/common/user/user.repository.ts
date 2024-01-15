@@ -12,7 +12,7 @@ export class UserRepository extends Repository<User> {
 
   async findById(id: number): Promise<User> {
     return await this.createQueryBuilder('user')
-      .where(`user.id=:id`, { id: id })
+      .where('user.nick_name=:nick_name', { nick_name: 'test' })
       .getOne();
   }
 }

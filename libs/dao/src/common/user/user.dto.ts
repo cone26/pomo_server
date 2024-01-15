@@ -3,11 +3,11 @@ import { BaseTimeDto } from '@libs/dao/base-time.dto';
 
 export class UserDto extends BaseTimeDto {
   @ApiProperty()
-  id: number;
+  email: string;
+
+  @ApiProperty()
+  password: string;
 
   @ApiProperty()
   nickName: string;
-
-  @ApiProperty()
-  gameDbId: number;
 }

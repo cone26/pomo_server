@@ -1,9 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseTimeEntity } from '../../../base-time.entity';
 
-@Entity({
-  database: process.env.DB_COMMON_NAME,
-})
+@Entity()
 export class User extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
   id: number;
