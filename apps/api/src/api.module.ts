@@ -11,6 +11,7 @@ import { UserController } from './user/user.controller';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
 import { LetterModule } from '@libs/dao/common/letter/letter.module';
+import { FriendModule } from '@libs/dao/common/friend/friend.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { LetterModule } from '@libs/dao/common/letter/letter.module';
     // dao module
     UserModule,
     LetterModule,
+    FriendModule,
   ],
   controllers: [ApiController, AuthController, UserController],
   providers: [ApiService, AuthService, UserService],
