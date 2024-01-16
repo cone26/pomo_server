@@ -12,6 +12,12 @@ import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
 import { LetterModule } from '@libs/dao/common/letter/letter.module';
 import { FriendModule } from '@libs/dao/common/friend/friend.module';
+import { FriendController } from './friend/friend.controller';
+import { FriendService } from './friend/friend.service';
+import { LetterController } from './letter/letter.controller';
+import { LetterService } from './letter/letter.service';
+import { ProfileController } from './profile/profile.controller';
+import { ProfileService } from './profile/profile.service';
 
 @Module({
   imports: [
@@ -29,7 +35,14 @@ import { FriendModule } from '@libs/dao/common/friend/friend.module';
     LetterModule,
     FriendModule,
   ],
-  controllers: [ApiController, AuthController, UserController],
-  providers: [ApiService, AuthService, UserService],
+  controllers: [
+    ApiController,
+    AuthController,
+    UserController,
+    FriendController,
+    LetterController,
+    ProfileController,
+  ],
+  providers: [ApiService, AuthService, UserService, FriendService, LetterService, ProfileService],
 })
 export class ApiModule {}
