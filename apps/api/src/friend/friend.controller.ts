@@ -13,11 +13,22 @@ import { FriendOutDto } from './dto/friend-out.dto';
 export class FriendController {
   constructor(private readonly friendService: FriendService) {}
 
-  @Get('/excepted')
+  @Get('/accepted')
   async getAllFriends(
     @CurrentUser() user,
   ): Promise<ResponseEntity<FriendOutDto[]>> {
     const friendsDto = await this.friendService.getAllFriends(user.id);
+
+    return new ResponseEntity<FriendOutDto[]>().ok().body(friendsDto);
+  }
+
+  @Get('/unaccepted')
+  async getAllUnacceptedFriends(
+    @CurrentUser() user,
+  ): Promise<ResponseEntity<FriendOutDto[]>> {
+    const friendsDto = await this.friendService.getAllUnacceptedFriends(
+      user.id,
+    );
 
     return new ResponseEntity<FriendOutDto[]>().ok().body(friendsDto);
   }

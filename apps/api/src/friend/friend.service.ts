@@ -24,7 +24,24 @@ export class FriendService {
       );
     }
 
-    const friendsDto = await this.friendRepository.findFriendsExcepted(userId);
+    const friendsDto = await this.friendRepository.findFriends(userId);
+
+    return friendsDto.map((it) => {
+      return FriendOutDto.fromEntity(it);
+    });
+  }
+
+  async getAllUnacceptedFriends(userId: number): Promise<FriendOutDto[]> {
+    const currentUser = await this.userRepository.findById(userId);
+    if (!currentUser) {
+      throw new InternalServerErrorException(
+        InternalErrorCode.USER_NOT_FOUND,
+        'USER_NOT_FOUND',
+      );
+    }
+
+    const friendsDto =
+      await this.friendRepository.findFriendsInvitation(userId);
 
     return friendsDto.map((it) => {
       return FriendOutDto.fromEntity(it);
