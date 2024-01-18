@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { FriendService } from './friend.service';
 import { CurrentUser } from '@libs/common/decorator/current-user.decorator';
-import { ResponseEntity } from '@libs/common/network/response-entity';
+import { Response, ResponseEntity } from '@libs/common/network/response-entity';
 import { FriendOutDto } from './dto/friend-out.dto';
 import { FriendDto } from '@libs/dao/common/friend/friend.dto';
 import { ApiResponseEntity } from '@libs/common/decorator/api-response-entity.decorator';
@@ -56,6 +56,7 @@ export class FriendController {
   @Post('request/accept')
   @ApiResponseEntity({ summary: '친구 신청 수락' })
   async acceptFriendRequest(
+    //@Param('id') id: number, -> 이걸로 하는게 더 빠른거 아님?
     @CurrentUser() user,
     @Body() friendRequestAcceptInDto: FriendRequestAcceptInDto,
   ): Promise<Response> {
