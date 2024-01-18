@@ -8,6 +8,8 @@ import { FriendDto } from '@libs/dao/common/friend/friend.dto';
 import { FriendRequestInDto } from './dto/friend-request-in.dto';
 import { FRIEND_STATUS } from '@libs/common/constants/friend.constants';
 import { Friend } from '@libs/dao/common/friend/friend.entity';
+import { FriendRequestAcceptInDto } from './dto/friend-request-accept-in.dto';
+import { User } from '@libs/dao/common/user/user.entity';
 
 @Injectable()
 export class FriendService {
@@ -52,10 +54,47 @@ export class FriendService {
     });
   }
 
-  async sendRequestFriend(
+  async sendFriendRequest(
     userId: number,
     friendRequestInDto: FriendRequestInDto,
   ): Promise<FriendDto> {
+    const targetFriend = await this.isUserAndTargetExists(
+      userId,
+      friendRequestInDto.targetNickname,
+    );
+
+    const createdRequest = await this.friendRepository.save(
+      new Friend({
+        userId: userId,
+        friendId: targetFriend.id,
+        process: FRIEND_STATUS.PROCESS,
+      }),
+    );
+
+    return FriendDto.fromEntity(createdRequest);
+  }
+
+  async acceptFriendRequest(
+    userId: number,
+    friendRequestAcceptInDto: FriendRequestAcceptInDto,
+  ): Promise<void> {
+    const targetFriend = await this.isUserAndTargetExists(
+      userId,
+      friendRequestAcceptInDto.targetNickname,
+    );
+
+    const friendRequest = await this.friendRepository.findRequest(
+      userId,
+      targetFriend.id,
+    );
+    friendRequest.process = FRIEND_STATUS.FRIEND;
+    await this.friendRepository.updateById(friendRequest.id, friendRequest);
+  }
+
+  private async isUserAndTargetExists(
+    userId: number,
+    targetNickname: string,
+  ): Promise<User> {
     const user = await this.userRepository.findById(userId);
     if (!user) {
       throw new InternalServerErrorException(
@@ -64,9 +103,8 @@ export class FriendService {
       );
     }
 
-    const targetFriend = await this.userRepository.findByNickname(
-      friendRequestInDto.targetNickname,
-    );
+    const targetFriend =
+      await this.userRepository.findByNickname(targetNickname);
 
     if (!targetFriend) {
       throw new InternalServerErrorException(
@@ -75,14 +113,6 @@ export class FriendService {
       );
     }
 
-    const createdRequest = await this.friendRepository.save(
-      new Friend({
-        userId: user.id,
-        friendId: targetFriend.id,
-        process: FRIEND_STATUS.PROCESS,
-      }),
-    );
-
-    return FriendDto.fromEntity(createdRequest);
+    return targetFriend;
   }
 }
