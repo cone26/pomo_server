@@ -33,7 +33,9 @@ export class FriendService {
     const friendsDto = await this.friendRepository.findFriends(userId);
 
     return friendsDto.map((it) => {
-      return FriendOutDto.fromEntity(it);
+      return FriendOutDto.fromEntity(
+        await this.userRepository.findById(it.friendId),
+      );
     });
   }
 
@@ -46,11 +48,13 @@ export class FriendService {
       );
     }
 
-    const friendsDto =
-      await this.friendRepository.findFriendsInvitation(userId);
+    const friendsDto = await this.friendRepository.findFriendsRequest(userId);
 
     return friendsDto.map((it) => {
-      return FriendOutDto.fromEntity(it);
+      return FriendOutDto.fromEntity(
+        // map에서 await
+        await this.userRepository.findById(it.friendId),
+      );
     });
   }
 
@@ -90,6 +94,8 @@ export class FriendService {
     friendRequest.process = FRIEND_STATUS.FRIEND;
     await this.friendRepository.updateById(friendRequest.id, friendRequest);
   }
+
+  // ========================= private method ====================
 
   private async isUserAndTargetExists(
     userId: number,
