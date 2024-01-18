@@ -4,6 +4,10 @@ import { FriendRepository } from '@libs/dao/common/friend/friend.repository';
 import { FriendOutDto } from './dto/friend-out.dto';
 import { UserRepository } from '@libs/dao/common/user/user.repository';
 import { InternalErrorCode } from '@libs/common/constants/internal-error-code.constants';
+import { FriendDto } from '@libs/dao/common/friend/friend.dto';
+import { FriendRequestInDto } from './dto/friend-request-in.dto';
+import { FRIEND_STATUS } from '@libs/common/constants/friend.constants';
+import { Friend } from '@libs/dao/common/friend/friend.entity';
 
 @Injectable()
 export class FriendService {
@@ -46,5 +50,39 @@ export class FriendService {
     return friendsDto.map((it) => {
       return FriendOutDto.fromEntity(it);
     });
+  }
+
+  async sendRequestFriend(
+    userId: number,
+    friendRequestInDto: FriendRequestInDto,
+  ): Promise<FriendDto> {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new InternalServerErrorException(
+        InternalErrorCode.USER_NOT_FOUND,
+        'USER_NOT_FOUND',
+      );
+    }
+
+    const targetFriend = await this.userRepository.findByNickname(
+      friendRequestInDto.targetNickname,
+    );
+
+    if (!targetFriend) {
+      throw new InternalServerErrorException(
+        InternalErrorCode.FRIEND_REQUEST_TARGET_USER_NOT_FOUND,
+        'FRIEND_REQUEST_TARGET_USER_NOT_FOUND',
+      );
+    }
+
+    const createdRequest = await this.friendRepository.save(
+      new Friend({
+        userId: user.id,
+        friendId: targetFriend.id,
+        process: FRIEND_STATUS.PROCESS,
+      }),
+    );
+
+    return FriendDto.fromEntity(createdRequest);
   }
 }

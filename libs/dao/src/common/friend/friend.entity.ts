@@ -14,4 +14,9 @@ export class Friend extends BaseTimeEntity {
 
   @Column()
   process: number;
+
+  constructor(partial?: Partial<Friend>) {
+    super();
+    Object.assign(this, partial);
+  }
 }
