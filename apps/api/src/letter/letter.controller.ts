@@ -34,7 +34,7 @@ export class LetterController {
     @CurrentUser() user,
     @Param('id') id: number,
   ): Promise<ResponseEntity<LetterDto>> {
-    const letterDto = await this.letterService.getLetter(user.id);
+    const letterDto = await this.letterService.getLetter(user.id, id);
 
     return new ResponseEntity<LetterDto>().ok().body(letterDto);
   }
