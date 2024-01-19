@@ -1,8 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ApiResponseEntity } from '@libs/common/decorator/api-response-entity.decorator';
 import { CurrentUser } from '@libs/common/decorator/current-user.decorator';
 import { ResponseEntity } from '@libs/common/network/response-entity';
-import { FriendOutDto } from '../friend/dto/friend-out.dto';
 import { LetterDto } from '@libs/dao/common/letter/letter.dto';
 import { LetterService } from './letter.service';
 
@@ -27,5 +26,16 @@ export class LetterController {
     const letterDto = await this.letterService.getAllUnreadLetterList(user.id);
 
     return new ResponseEntity<LetterDto[]>().ok().body(letterDto);
+  }
+
+  @Get('/:id')
+  @ApiResponseEntity({ summary: '편지 조회' })
+  async getLetter(
+    @CurrentUser() user,
+    @Param('id') id: number,
+  ): Promise<ResponseEntity<LetterDto>> {
+    const letterDto = await this.letterService.getLetter(user.id);
+
+    return new ResponseEntity<LetterDto>().ok().body(letterDto);
   }
 }

@@ -4,4 +4,7 @@ export const InternalErrorCode = {
 
   //FRIEND 10-19
   FRIEND_REQUEST_TARGET_USER_NOT_FOUND: 10,
+
+  //LETTER 20-29
+  LETTER_NOT_FOUND: 20,
 };
