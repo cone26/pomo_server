@@ -33,11 +33,12 @@ export class FriendService {
 
     const friendsDto = await this.friendRepository.findFriends(userId);
 
-    return friendsDto.map(async (it) => {
-      return UserDto.fromEntity(
-        await this.userRepository.findById(it.friendId),
-      );
-    });
+    //test async-await
+    return await Promise.all(
+      friendsDto.map((it) => {
+        return UserDto.fromEntity(this.userRepository.findById(it.friendId));
+      }),
+    );
   }
 
   async getAllUnacceptedFriends(userId: number): Promise<FriendOutDto[]> {
@@ -51,12 +52,14 @@ export class FriendService {
 
     const friendsDto = await this.friendRepository.findFriendsRequest(userId);
 
-    return friendsDto.map(async (it) => {
-      return FriendOutDto.fromEntity(
-        // map에서 await
-        await this.userRepository.findById(it.friendId),
-      );
-    });
+    //test async-await
+    return Promise.all(
+      friendsDto.map((it) => {
+        return FriendOutDto.fromEntity(
+          this.userRepository.findById(it.friendId),
+        );
+      }),
+    );
   }
 
   async sendFriendRequest(
