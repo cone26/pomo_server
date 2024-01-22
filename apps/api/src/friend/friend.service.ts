@@ -10,6 +10,7 @@ import { FRIEND_STATUS } from '@libs/common/constants/friend.constants';
 import { Friend } from '@libs/dao/common/friend/friend.entity';
 import { FriendRequestAcceptInDto } from './dto/friend-request-accept-in.dto';
 import { User } from '@libs/dao/common/user/user.entity';
+import { UserDto } from '@libs/dao/common/user/user.dto';
 
 @Injectable()
 export class FriendService {
@@ -21,7 +22,7 @@ export class FriendService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async getAllFriends(userId: number): Promise<FriendOutDto[]> {
+  async getAllFriends(userId: number): Promise<UserDto[]> {
     const currentUser = await this.userRepository.findById(userId);
     if (!currentUser) {
       throw new InternalServerErrorException(
@@ -32,8 +33,8 @@ export class FriendService {
 
     const friendsDto = await this.friendRepository.findFriends(userId);
 
-    return friendsDto.map((it) => {
-      return FriendOutDto.fromEntity(
+    return friendsDto.map(async (it) => {
+      return UserDto.fromEntity(
         await this.userRepository.findById(it.friendId),
       );
     });
@@ -50,7 +51,7 @@ export class FriendService {
 
     const friendsDto = await this.friendRepository.findFriendsRequest(userId);
 
-    return friendsDto.map((it) => {
+    return friendsDto.map(async (it) => {
       return FriendOutDto.fromEntity(
         // map에서 await
         await this.userRepository.findById(it.friendId),

@@ -1,9 +1,12 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiResponseEntity } from '@libs/common/decorator/api-response-entity.decorator';
 import { CurrentUser } from '@libs/common/decorator/current-user.decorator';
 import { ResponseEntity } from '@libs/common/network/response-entity';
 import { LetterDto } from '@libs/dao/common/letter/letter.dto';
 import { LetterService } from './letter.service';
+import { SendLetterInDto } from './dto/send-letter-in.dto';
+import { FriendDto } from '@libs/dao/common/friend/friend.dto';
+import { FriendRequestInDto } from '../friend/dto/friend-request-in.dto';
 
 @Controller('letter')
 export class LetterController {
@@ -35,6 +38,20 @@ export class LetterController {
     @Param('id') id: number,
   ): Promise<ResponseEntity<LetterDto>> {
     const letterDto = await this.letterService.getLetter(user.id, id);
+
+    return new ResponseEntity<LetterDto>().ok().body(letterDto);
+  }
+
+  @Post('request')
+  @ApiResponseEntity({ type: LetterDto, summary: '편지 등록' })
+  async sendLetter(
+    @CurrentUser() user,
+    @Body() sendLetterInDto: SendLetterInDto,
+  ): Promise<ResponseEntity<LetterDto>> {
+    const letterDto = await this.letterService.sendLetter(
+      user.id,
+      sendLetterInDto,
+    );
 
     return new ResponseEntity<LetterDto>().ok().body(letterDto);
   }
