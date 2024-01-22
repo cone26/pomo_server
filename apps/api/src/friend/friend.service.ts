@@ -22,7 +22,7 @@ export class FriendService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async getAllFriends(userId: number): Promise<UserDto[]> {
+  async getAllFriends(userId: number): Promise<FriendOutDto[]> {
     const currentUser = await this.userRepository.findById(userId);
     if (!currentUser) {
       throw new InternalServerErrorException(
