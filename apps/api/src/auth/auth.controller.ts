@@ -28,7 +28,8 @@ export class AuthController {
       email: userDto.email,
     };
     const accessToken = this.authService.getAccessToken(payload);
-    return new ResponseEntity()
+
+    return new ResponseEntity<AuthLoginOutDto>()
       .ok()
       .body(AuthLoginOutDto.of().setAccessToken(accessToken));
   }
