@@ -5,6 +5,7 @@ import { ApiResponseEntity } from '@libs/common/decorator/api-response-entity.de
 import { AuthLoginInDto } from './dto/auth-login-in-dto';
 import { ResponseEntity } from '@libs/common/network/response-entity';
 import { UserService } from '../user/user.service';
+import { AuthLoginOutDto } from './dto/auth-login-out.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -16,9 +17,19 @@ export class AuthController {
 
   @Post('login')
   @ApiResponseEntity({ summary: 'login' })
-  async signIn(@Body() authLoginInDto: AuthLoginInDto) {
+  async signIn(
+    @Body() authLoginInDto: AuthLoginInDto,
+  ): Promise<ResponseEntity<AuthLoginOutDto>> {
+    // login
+    const userDto = await this.userService.signIn(authLoginInDto);
+
+    const payload = {
+      id: userDto.id,
+      email: userDto.email,
+    };
+    const accessToken = this.authService.getAccessToken(payload);
     return new ResponseEntity()
       .ok()
-      .body(await this.userService.signIn(authLoginInDto));
+      .body(AuthLoginOutDto.of().setAccessToken(accessToken));
   }
 }

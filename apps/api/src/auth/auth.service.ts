@@ -23,8 +23,8 @@ export class AuthService {
     });
   }
 
-  verifyJwt(asscessToken: string) {
-    return this.jwtService.verify(asscessToken, {
+  verifyJwt(accessToken: string) {
+    return this.jwtService.verify(accessToken, {
       secret: this.config.get<string>('ACCESS_TOKEN_SECRET'),
     });
   }

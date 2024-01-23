@@ -5,6 +5,9 @@ import { EntitySerializeImpl } from '@libs/dao/base/entity-serialize.decorator';
 @EntitySerializeImpl()
 export class UserDto extends BaseTimeDto {
   @ApiProperty()
+  id: number;
+
+  @ApiProperty()
   email: string;
 
   @ApiProperty()

@@ -1,9 +1,15 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthLoginInDto } from '../auth/dto/auth-login-in-dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '@libs/dao/common/user/user.repository';
 import { User } from '@libs/dao/common/user/user.entity';
+import { InternalErrorCode } from '@libs/common/constants/internal-error-code.constants';
+import { UserDto } from '@libs/dao/common/user/user.dto';
 
 // export type User = any;
 
@@ -15,20 +21,17 @@ export class UserService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(authLoginInDto: AuthLoginInDto): Promise<any> {
+  async signIn(authLoginInDto: AuthLoginInDto): Promise<UserDto> {
     const user = await this.userRepository.findByEmail(authLoginInDto.email);
-
-    if (user?.password !== authLoginInDto.password) {
-      throw new UnauthorizedException();
+    if (!(await user.checkPassword(authLoginInDto.password))) {
+      throw new InternalServerErrorException(
+        InternalErrorCode.USER_MISMATCHED_PASSWORD,
+        'USER_MISMATCHED_PASSWORD',
+      );
     }
-    const payload = { email: user.email, sub: user.id };
-    const accessToken = await this.jwtService.signAsync(payload);
 
-    return {
-      accessToken,
-    };
-  }
-  async findUser(id: number): Promise<User> {
-    return await this.userRepository.findById(id);
+    // const accessToken = await this.jwtService.signAsync(payload);
+
+    return UserDto.fromEntity(user);
   }
 }
