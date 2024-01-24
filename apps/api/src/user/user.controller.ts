@@ -17,13 +17,13 @@ export class UserController {
     private readonly userService: UserService,
   ) {}
 
-  @Get('test')
-  @ApiResponseEntity({ summary: 'test' })
-  async test(): Promise<ResponseEntity<UserDto>> {
-    return new ResponseEntity<UserDto>()
-      .ok()
-      .body(await this.userService.findUser(1));
-  }
+  // @Get('test')
+  // @ApiResponseEntity({ summary: 'test' })
+  // async test(): Promise<ResponseEntity<UserDto>> {
+  //   return new ResponseEntity<UserDto>()
+  //     .ok()
+  //     .body(await this.userService.findUser(1));
+  // }
 
   // @Post('/drop')
   // @ApiResponseEntity({summary:'탈퇴'})

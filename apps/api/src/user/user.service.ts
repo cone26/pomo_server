@@ -3,13 +3,14 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthLoginInDto } from '../auth/dto/auth-login-in-dto';
+import { AuthLoginInDto } from '../auth/dto/auth-login-in.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '@libs/dao/common/user/user.repository';
 import { User } from '@libs/dao/common/user/user.entity';
 import { InternalErrorCode } from '@libs/common/constants/internal-error-code.constants';
 import { UserDto } from '@libs/dao/common/user/user.dto';
+import { AuthSignupInDto } from '../auth/dto/auth-signup-in.dto';
 
 // export type User = any;
 
@@ -33,5 +34,30 @@ export class UserService {
     // const accessToken = await this.jwtService.signAsync(payload);
 
     return UserDto.fromEntity(user);
+  }
+
+  async signup(authSignupInDto: AuthSignupInDto): Promise<UserDto> {
+    const isUserNicknameExists = await this.userRepository.findByNickname(
+      authSignupInDto.nickname,
+    );
+    if (isUserNicknameExists) {
+      throw new InternalServerErrorException(
+        InternalErrorCode.USER_CONFLICT_NICKNAME,
+        'USER_CONFLICT_NICKNAME',
+      );
+    }
+
+    // create a user
+    const userDto = await this.userRepository.save(
+      new User({
+        nickName: authSignupInDto.nickname,
+        email: authSignupInDto.email,
+        password: authSignupInDto.password,
+      }),
+    );
+
+    // create a profile -> ??
+
+    return UserDto.fromEntity(userDto);
   }
 }

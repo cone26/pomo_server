@@ -9,7 +9,7 @@ import { commonTypeOrmModuleOptions } from '@libs/common/database/typeorm/typeor
 import { UserModule } from '@libs/dao/common/user/user.module';
 import { User } from '@libs/dao/common/user/user.entity';
 import { UserService } from '../user/user.service';
-import { AuthLoginInDto } from '../auth/dto/auth-login-in-dto';
+import { AuthLoginInDto } from '../auth/dto/auth-login-in.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/strategy/jwt.strategy';
 import { AuthService } from '../auth/auth.service';
