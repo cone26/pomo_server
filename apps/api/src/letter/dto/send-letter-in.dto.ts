@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UserDto } from '@libs/dao/common/user/user.dto';
 
 export class SendLetterInDto {
   @ApiProperty()
@@ -12,5 +11,5 @@ export class SendLetterInDto {
   content: string;
 
   @ApiProperty()
-  to: number[]; // friend user id
+  toUser: number[]; // friend user id
 }

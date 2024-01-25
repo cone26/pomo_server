@@ -31,7 +31,7 @@ export class LetterController {
   async getAllReadLetterList(
     @CurrentUser() user,
   ): Promise<ResponseEntity<LetterDto[]>> {
-    const letterDto = await this.letterService.getAllUnreadLetterList(user.id);
+    const letterDto = await this.letterService.getAllReadLetterList(user.id);
 
     return new ResponseEntity<LetterDto[]>().ok().body(letterDto);
   }
@@ -52,12 +52,12 @@ export class LetterController {
   async sendLetter(
     @CurrentUser() user,
     @Body() sendLetterInDto: SendLetterInDto,
-  ): Promise<ResponseEntity<LetterDto>> {
+  ): Promise<ResponseEntity<LetterDto[]>> {
     const letterDto = await this.letterService.sendLetter(
       user.id,
       sendLetterInDto,
     );
 
-    return new ResponseEntity<LetterDto>().ok().body(letterDto);
+    return new ResponseEntity<LetterDto[]>().ok().body(letterDto);
   }
 }

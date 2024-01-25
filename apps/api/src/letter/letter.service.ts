@@ -43,7 +43,7 @@ export class LetterService {
     }
 
     if (letter.status !== LETTER_STATUS.READ) {
-      letter.status = LETTER_STATUS.UNREAD;
+      letter.status = LETTER_STATUS.READ;
       await this.letterRepository.updateById(letter.id, letter);
     }
 
@@ -53,14 +53,22 @@ export class LetterService {
   async sendLetter(
     userId: number,
     sendLetterInDto: SendLetterInDto,
-  ): Promise<LetterDto> {
+  ): Promise<LetterDto[]> {
     await this.isUserValid(userId);
+    const letterDto = [];
+    for (const target of sendLetterInDto.toUser) {
+      const letter = await this.letterRepository.save(
+        new LetterDto({
+          ...sendLetterInDto,
+          status: LETTER_STATUS.UNREAD,
+          fromUser: userId,
+          toUser: target,
+        }),
+      );
+      letterDto.push(letter);
+    }
 
-    const letterDto = await this.letterRepository.save(
-      new LetterDto({ ...sendLetterInDto }),
-    );
-
-    return LetterDto.fromEntity(letterDto);
+    return letterDto.map((it) => LetterDto.fromEntity(it));
   }
 
   // ========================= private method ====================
