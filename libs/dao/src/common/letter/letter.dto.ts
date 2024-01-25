@@ -23,6 +23,9 @@ export class LetterDto extends BaseTimeDto {
   @ApiProperty()
   fromUser: number;
 
+  @ApiProperty()
+  toUser: number;
+
   constructor(partial?: Partial<LetterDto>) {
     super();
     Object.assign(this, partial);

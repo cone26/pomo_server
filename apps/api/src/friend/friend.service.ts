@@ -33,7 +33,8 @@ export class FriendService {
 
     const friendsDto = await this.friendRepository.findFriends(userId);
 
-    //test async-await
+    //TODO: test async-await
+    //TODO: need to edit the return type
     return await Promise.all(
       friendsDto.map((it) => {
         return UserDto.fromEntity(this.userRepository.findById(it.friendId));
@@ -96,6 +97,7 @@ export class FriendService {
       targetFriend.id,
     );
     friendRequest.process = FRIEND_STATUS.FRIEND;
+    console.log(friendRequest.process);
     await this.friendRepository.updateById(friendRequest.id, friendRequest);
   }
 

@@ -20,4 +20,7 @@ export class Letter extends BaseTimeEntity {
 
   @Column()
   fromUser: number;
+
+  @Column()
+  toUser: number;
 }

@@ -17,14 +17,14 @@ export class LetterRepository extends Repository<Letter> {
 
   async findUnreadLetters(userId: number): Promise<Letter[]> {
     return await this.createQueryBuilder('letter')
-      .where('letter.user_id=:userId', { userId: userId })
+      .where('letter.to_user=:userId', { userId: userId })
       .andWhere('letter.status=:status', { status: LETTER_STATUS.UNREAD })
       .getMany();
   }
 
   async findReadLetters(userId: number): Promise<Letter[]> {
     return await this.createQueryBuilder('letter')
-      .where('letter.user_id=:userId', { userId: userId })
+      .where('letter.to_user=:userId', { userId: userId })
       .andWhere('letter.status=:status', { status: LETTER_STATUS.READ })
       .getMany();
   }
