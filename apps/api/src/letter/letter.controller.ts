@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiResponseEntity } from '@libs/common/decorator/api-response-entity.decorator';
 import { CurrentUser } from '@libs/common/decorator/current-user.decorator';
 import { ResponseEntity } from '@libs/common/network/response-entity';
@@ -7,8 +7,13 @@ import { LetterService } from './letter.service';
 import { SendLetterInDto } from './dto/send-letter-in.dto';
 import { FriendDto } from '@libs/dao/common/friend/friend.dto';
 import { FriendRequestInDto } from '../friend/dto/friend-request-in.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
+@ApiTags('letter')
 @Controller('letter')
+@ApiBearerAuth('jwt')
+@UseGuards(JwtAuthGuard)
 export class LetterController {
   constructor(private readonly letterService: LetterService) {}
   @Get('/unread/list')

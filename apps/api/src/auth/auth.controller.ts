@@ -1,6 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ApiResponseEntity } from '@libs/common/decorator/api-response-entity.decorator';
 import { AuthLoginInDto } from './dto/auth-login-in.dto';
 import { ResponseEntity } from '@libs/common/network/response-entity';
@@ -9,6 +9,7 @@ import { AuthLoginOutDto } from './dto/auth-login-out.dto';
 import { AuthSignupOutDto } from './dto/auth-signup-out.dto';
 import { AuthSignupInDto } from './dto/auth-signup-in.dto';
 import { JwtPayload } from './payload/jwt.payload';
+import { JwtAuthGuard } from './guard/jwt-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
