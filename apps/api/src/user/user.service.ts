@@ -19,7 +19,6 @@ export class UserService {
   constructor(
     @InjectRepository(UserRepository, process.env.DB_COMMON_NAME)
     private readonly userRepository: UserRepository,
-    private jwtService: JwtService,
   ) {}
 
   async signIn(authLoginInDto: AuthLoginInDto): Promise<UserDto> {
@@ -40,6 +39,7 @@ export class UserService {
     const isUserNicknameExists = await this.userRepository.findByNickname(
       authSignupInDto.nickname,
     );
+
     if (isUserNicknameExists) {
       throw new InternalServerErrorException(
         InternalErrorCode.USER_CONFLICT_NICKNAME,

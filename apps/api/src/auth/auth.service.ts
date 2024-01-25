@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   validateJwt(payload: any) {
-    return !!payload.sub && !!payload.email;
+    return !!payload.nickname && !!payload.email;
   }
 
   getAccessToken(payload: any): string {

@@ -7,8 +7,8 @@ const environment = process.env.NODE_ENV || 'test';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      cache: true,
-      envFilePath: `./config/.api.${environment}.env`,
+      // cache: true,
+      envFilePath: `config/.api.${environment}.env`,
     }),
   ],
 })

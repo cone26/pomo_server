@@ -27,6 +27,8 @@ export class AuthController {
   async signup(
     @Body() authSignupInDto: AuthSignupInDto,
   ): Promise<ResponseEntity<AuthSignupOutDto>> {
+    //TODO: rollback 어케 함
+
     // create a user
     const userDto = await this.userService.signup(authSignupInDto);
 
