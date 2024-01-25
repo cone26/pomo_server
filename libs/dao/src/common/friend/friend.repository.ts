@@ -17,14 +17,14 @@ export class FriendRepository extends Repository<Friend> {
   async findFriends(userId: number): Promise<Friend[]> {
     return await this.createQueryBuilder('friend')
       .where('friend.user_id=:userId', { userId: userId })
-      .andWhere('friend.status=:status', { status: FRIEND_STATUS.FRIEND })
+      .andWhere('friend.process=:process', { process: FRIEND_STATUS.FRIEND })
       .getMany();
   }
 
   async findFriendsRequest(userId: number): Promise<Friend[]> {
     return await this.createQueryBuilder('friend')
       .where('friend.user_id=:userId', { userId: userId })
-      .andWhere('friend.status=:status', { status: FRIEND_STATUS.PROCESS })
+      .andWhere('friend.process=:process', { process: FRIEND_STATUS.PROCESS })
       .getMany();
   }
 
