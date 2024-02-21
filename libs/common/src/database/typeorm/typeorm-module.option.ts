@@ -12,6 +12,9 @@ export const defaultTypeOrmOptions: DataSourceOptions = {
   synchronize:
     (process.env.DB_SYNCHRONIZE && JSON.parse(process.env.DB_SYNCHRONIZE)) ||
     false,
+  ssl: {
+    rejectUnauthorized: true,
+  },
   namingStrategy: new CustomNamingStrategy(),
   charset: 'utf8mb4',
   timezone: 'Z',
