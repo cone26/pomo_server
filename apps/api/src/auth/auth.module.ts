@@ -6,6 +6,7 @@ import { JWT_OPTIONS } from '../constants/jwt.constants';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { UserModule } from '@libs/dao/common/user/user.module';
+import { GoogleStrategy } from './strategy/google.strategy';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { UserModule } from '@libs/dao/common/user/user.module';
     }),
     UserModule,
   ],
-  providers: [AuthService, UserService, JwtStrategy],
+  providers: [AuthService, UserService, JwtStrategy, GoogleStrategy],
   exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
