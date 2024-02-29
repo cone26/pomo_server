@@ -5,7 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestApplication } from '@nestjs/core';
 
 export class ApiServer {
-  constructor(private readonly app: INestApplication) {}
+  constructor(private readonly app: NestFastifyApplication) {}
 
   async init() {
     // CORS

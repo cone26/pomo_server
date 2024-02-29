@@ -4,7 +4,7 @@ import * as process from 'process';
 
 export const defaultTypeOrmOptions: DataSourceOptions = {
   type: 'mysql',
-  url: process.env.DATABASE_URL,
+  // url: process.env.DATABASE_URL,
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER_NAME,
@@ -12,9 +12,9 @@ export const defaultTypeOrmOptions: DataSourceOptions = {
   synchronize:
     (process.env.DB_SYNCHRONIZE && JSON.parse(process.env.DB_SYNCHRONIZE)) ||
     false,
-  ssl: {
-    rejectUnauthorized: true,
-  },
+  // ssl: {
+  //   rejectUnauthorized: true,
+  // },
   namingStrategy: new CustomNamingStrategy(),
   charset: 'utf8mb4',
   timezone: 'Z',
