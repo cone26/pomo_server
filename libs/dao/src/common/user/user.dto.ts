@@ -11,10 +11,22 @@ export class UserDto extends BaseTimeDto {
   email: string;
 
   @ApiProperty()
-  password: string;
+  firstName: string;
 
   @ApiProperty()
-  nickName: string;
+  lastName: string;
+
+  @ApiProperty()
+  socialProvider: string;
+
+  @ApiProperty()
+  externalId: string;
+
+  @ApiProperty()
+  accessToken: string;
+
+  @ApiProperty()
+  refreshToken: string;
 
   constructor(partial?: Partial<UserDto>) {
     super();

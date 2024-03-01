@@ -13,11 +13,11 @@ import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { GoogleStrategy } from './strategy/google.strategy';
 import { GoogleAuthGuard } from './guard/google-auth.guard';
-import { FastifyThrottlerGuard } from './guard/fastify-throttler.guard';
+// import { FastifyThrottlerGuard } from './guard/fastify-throttler.guard';
 
 @ApiTags('auth')
 @Controller('auth')
-@UseGuards(FastifyThrottlerGuard)
+// @UseGuards(FastifyThrottlerGuard)
 @UseGuards(GoogleAuthGuard)
 export class AuthController {
   constructor(

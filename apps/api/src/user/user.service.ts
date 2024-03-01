@@ -21,43 +21,43 @@ export class UserService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async signIn(authLoginInDto: AuthLoginInDto): Promise<UserDto> {
-    const user = await this.userRepository.findByEmail(authLoginInDto.email);
-    if (!(await user.checkPassword(authLoginInDto.password))) {
-      throw new InternalServerErrorException(
-        InternalErrorCode.USER_MISMATCHED_PASSWORD,
-        'USER_MISMATCHED_PASSWORD',
-      );
-    }
+  // async signIn(authLoginInDto: AuthLoginInDto): Promise<UserDto> {
+  //   const user = await this.userRepository.findByEmail(authLoginInDto.email);
+  //   if (!(await user.checkPassword(authLoginInDto.password))) {
+  //     throw new InternalServerErrorException(
+  //       InternalErrorCode.USER_MISMATCHED_PASSWORD,
+  //       'USER_MISMATCHED_PASSWORD',
+  //     );
+  //   }
+  //
+  //   // const accessToken = await this.jwtService.signAsync(payload);
+  //
+  //   return UserDto.fromEntity(user);
+  // }
 
-    // const accessToken = await this.jwtService.signAsync(payload);
-
-    return UserDto.fromEntity(user);
-  }
-
-  async signup(authSignupInDto: AuthSignupInDto): Promise<UserDto> {
-    const isUserNicknameExists = await this.userRepository.findByNickname(
-      authSignupInDto.nickname,
-    );
-
-    if (isUserNicknameExists) {
-      throw new InternalServerErrorException(
-        InternalErrorCode.USER_CONFLICT_NICKNAME,
-        'USER_CONFLICT_NICKNAME',
-      );
-    }
-
-    // create a user
-    const userDto = await this.userRepository.save(
-      new User({
-        nickName: authSignupInDto.nickname,
-        email: authSignupInDto.email,
-        password: authSignupInDto.password,
-      }),
-    );
-
-    // create a profile -> ??
-
-    return UserDto.fromEntity(userDto);
-  }
+  // async signup(authSignupInDto: AuthSignupInDto): Promise<UserDto> {
+  //   const isUserNicknameExists = await this.userRepository.findByNickname(
+  //     authSignupInDto.nickname,
+  //   );
+  //
+  //   if (isUserNicknameExists) {
+  //     throw new InternalServerErrorException(
+  //       InternalErrorCode.USER_CONFLICT_NICKNAME,
+  //       'USER_CONFLICT_NICKNAME',
+  //     );
+  //   }
+  //
+  //   // create a user
+  //   const userDto = await this.userRepository.save(
+  //     new User({
+  //       nickName: authSignupInDto.nickname,
+  //       email: authSignupInDto.email,
+  //       password: authSignupInDto.password,
+  //     }),
+  //   );
+  //
+  //   // create a profile -> ??
+  //
+  //   return UserDto.fromEntity(userDto);
+  // }
 }

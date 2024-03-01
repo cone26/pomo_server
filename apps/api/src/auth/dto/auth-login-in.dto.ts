@@ -5,5 +5,20 @@ export class AuthLoginInDto {
   email: string;
 
   @ApiProperty()
-  password: string;
+  firstName: string;
+
+  @ApiProperty()
+  lastName: string;
+
+  @ApiProperty()
+  socialProvider: string;
+
+  @ApiProperty()
+  externalId: string;
+
+  @ApiProperty()
+  accessToken: string;
+
+  @ApiProperty()
+  refreshToken: string;
 }
