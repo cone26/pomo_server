@@ -33,8 +33,9 @@ export class AuthController {
   @Get('callback/google')
   async googleAuthRedirect(@Req() req, @Res() res) {
     console.log('GET callback/google - googleAuthRedirect 실행');
-
     const { user } = req;
+    await this.userService.saveUser(user);
+    console.log(user);
     return res.send(user);
   }
 

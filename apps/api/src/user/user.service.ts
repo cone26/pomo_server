@@ -21,6 +21,32 @@ export class UserService {
     private readonly userRepository: UserRepository,
   ) {}
 
+  async saveUser(socialLoginInDto: AuthLoginInDto): Promise<object | UserDto> {
+    const findUser = await this.userRepository.findByEmail(
+      socialLoginInDto.email,
+    );
+
+    if (findUser && findUser.socialProvider == 'GOOGLE') {
+      throw new InternalServerErrorException(
+        InternalErrorCode.USER_ALREADY_EXISTS,
+        'USER_ALREADY_EXISTS',
+      );
+    }
+
+    const user = await this.userRepository.save(
+      new User({
+        email: socialLoginInDto.email,
+        firstName: socialLoginInDto.firstName,
+        lastName: socialLoginInDto.lastName,
+        socialProvider: socialLoginInDto.socialProvider,
+        externalId: socialLoginInDto.externalId,
+        accessToken: socialLoginInDto.accessToken,
+        // refreshToken: string;
+      }),
+    );
+
+    return UserDto.fromEntity(user);
+  }
   // async signIn(authLoginInDto: AuthLoginInDto): Promise<UserDto> {
   //   const user = await this.userRepository.findByEmail(authLoginInDto.email);
   //   if (!(await user.checkPassword(authLoginInDto.password))) {

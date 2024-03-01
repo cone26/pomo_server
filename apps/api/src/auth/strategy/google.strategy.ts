@@ -1,10 +1,10 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { AuthLoginInDto } from '../dto/auth-login-in.dto';
-import { AuthService } from '../auth.service';
+import { UserService } from '../../user/user.service';
 
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor(private readonly authService: AuthService) {
+  constructor(private userService: UserService) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -30,9 +30,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       refreshToken,
     };
     try {
-      const user = await this.authService.saveUser(socialLoginUserInfo);
+      console.log(this.userService);
+      // const user = await this.userService.saveUser(socialLoginUserInfo);
 
-      done(null, user);
+      done(null, socialLoginUserInfo);
     } catch (error) {
       done(error);
     }

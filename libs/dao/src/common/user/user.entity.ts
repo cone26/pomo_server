@@ -2,7 +2,7 @@ import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseTimeEntity } from '../../base-time.entity';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 @Entity()
 export class User extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
@@ -26,9 +26,8 @@ export class User extends BaseTimeEntity {
   @Column()
   accessToken: string;
 
-  @Column()
+  @Column({ nullable: true })
   refreshToken: string;
-
 
   constructor(partial?: Partial<User>) {
     super();
