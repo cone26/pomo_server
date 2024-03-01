@@ -8,7 +8,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3002/auth/callback/google', // 이 부분은 구글 콘솔에서 설정한대로. 승인된 리디렉션 URI
+      callbackURL: `${process.env.SERVER_DOMAIN}/auth/callback/google`, // 이 부분은 구글 콘솔에서 설정한대로. 승인된 리디렉션 URI
       scope: ['email', 'profile'],
     });
   }
@@ -19,20 +19,17 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback,
   ) {
-    const { name, emails, provider } = profile;
-    const socialLoginUserInfo: AuthLoginInDto = {
-      email: emails[0].value,
-      firstName: name.givenName,
-      lastName: name.familyName,
-      socialProvider: provider,
-      externalId: profile.id,
-      accessToken,
-      refreshToken,
-    };
     try {
-      console.log(this.userService);
-      // const user = await this.userService.saveUser(socialLoginUserInfo);
-
+      const { name, emails, provider } = profile;
+      const socialLoginUserInfo: AuthLoginInDto = {
+        email: emails[0].value,
+        firstName: name.givenName,
+        lastName: name.familyName,
+        socialProvider: provider,
+        externalId: profile.id,
+        accessToken,
+        refreshToken,
+      };
       done(null, socialLoginUserInfo);
     } catch (error) {
       done(error);
