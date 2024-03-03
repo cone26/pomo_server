@@ -27,7 +27,10 @@ export class AuthController {
 
   @Get('google/login')
   async googleAuth(@Req() req) {
+    const { user } = req;
+    // return res.send(user);
     console.log('GET google/login - googleAuth 실행');
+    console.log(user);
   }
 
   @Get('callback/google')
@@ -36,7 +39,9 @@ export class AuthController {
     const { user } = req;
     await this.userService.saveUser(user);
     console.log(user);
-    return res.send(user);
+    // return new ResponseEntity<AuthLoginOutDto>()
+    //   .ok()
+    //   .body(AuthLoginOutDto.of().setAccessToken(accessToken));
   }
 
   // @Post('/signup')
